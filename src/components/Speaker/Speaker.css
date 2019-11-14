@@ -1,0 +1,16 @@
+.Speaker {
+  width: 150px;
+  height: 100px;
+  background-color: grey;
+  border-radius: 15px;
+  position: absolute;
+  top: 286px;
+}
+
+.Speaker--left {
+  left: 106px;
+}
+
+.Speaker--right {
+  left: 518px;
+}
