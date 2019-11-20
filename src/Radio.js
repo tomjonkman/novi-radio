@@ -42,7 +42,7 @@ class Radio extends React.Component {
   render() {
     return (
       <div className="Radio">
-        <img src={background} />
+        <img src={background} alt="Radio" />
         <Speaker position="left" />
         <Speaker position="right" />
         <Display statusText={this.state.statusText} channelName={this.state.activeRadioChannel.name} frequency={this.state.activeRadioChannel.frequency} />
