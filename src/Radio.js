@@ -2,24 +2,38 @@ import React from 'react';
 import background from './assets/background.jpg';
 import Speaker from './components/Speaker/Speaker';
 import Display from './components/Display/Display';
-import './Radio.css';
+import Button from './components/Button/Button';
 import getRadioChannel from './api/api';
+import './Radio.css';
 
 class Radio extends React.Component {
   state = {
-    activeChannel: 1,
+    status: 0,
+    statusText: null,
+    activeChannel: null,
     activeRadioChannel: {}
   }
 
-  componentDidMount() {
-    this.fetchRadioChannel();
+  onClickHandler = (radioChannelId) => {
+    this.setState({
+      ...this.state,
+      status: 1,
+      statusText: 'Bezig met laden...',
+      activeChannel: null,
+      activeRadioChannel: {}
+    });
+
+    this.fetchRadioChannel(radioChannelId);
   }
 
-  async fetchRadioChannel() {
-    const radioChannel = await getRadioChannel(this.state.activeChannel);
+  async fetchRadioChannel(radioChannelId) {
+    const radioChannel = await getRadioChannel(radioChannelId);
 
     this.setState({
       ...this.state,
+      status: 0,
+      statusText: null,
+      activeChannel: radioChannel.id,
       activeRadioChannel: radioChannel
     });
   }
@@ -30,7 +44,12 @@ class Radio extends React.Component {
         <img src={background} />
         <Speaker position="left" />
         <Speaker position="right" />
-        <Display channelName={this.state.activeRadioChannel.name} frequency="100.7FM" />
+        <Display statusText={this.state.statusText} channelName={this.state.activeRadioChannel.name} frequency={this.state.activeRadioChannel.frequency} />
+        <div className="ButtonContainer">
+          <Button status={this.state.status} activeChannel={this.state.activeChannel} radioChannelId={1} onClickHandler={this.onClickHandler} />
+          <Button status={this.state.status} activeChannel={this.state.activeChannel} radioChannelId={2} onClickHandler={this.onClickHandler} />
+          <Button status={this.state.status} activeChannel={this.state.activeChannel} radioChannelId={3} onClickHandler={this.onClickHandler} />
+        </div>
       </div>
     );
   }

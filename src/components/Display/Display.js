@@ -5,10 +5,10 @@ const Display = (props) => {
   return (
     <div className="Display">
       <p className="title">
-        {props.channelName}
+        {props.statusText || props.channelName}
       </p>
       <p className="subtitle">
-        {props.frequency}
+        {!props.statusText && props.frequency}
       </p>
     </div>)
 };

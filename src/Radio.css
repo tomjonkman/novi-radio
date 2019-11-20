@@ -4,3 +4,12 @@
   width: 700px;
   height: 700px;
 }
+
+.ButtonContainer {
+  position: absolute;
+  top: 425px;
+  left: 230px;
+  width: 500px;
+  display: flex;
+  justify-content: space-evenly;
+}
