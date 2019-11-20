@@ -3,6 +3,7 @@ import background from './assets/background.jpg';
 import Speaker from './components/Speaker/Speaker';
 import Display from './components/Display/Display';
 import Button from './components/Button/Button';
+import Player from './components/Player/Player';
 import getRadioChannel from './api/api';
 import './Radio.css';
 
@@ -10,7 +11,7 @@ class Radio extends React.Component {
   state = {
     status: 0,
     statusText: null,
-    activeChannel: null,
+    activeChannelId: null,
     activeRadioChannel: {}
   }
 
@@ -19,7 +20,7 @@ class Radio extends React.Component {
       ...this.state,
       status: 1,
       statusText: 'Bezig met laden...',
-      activeChannel: null,
+      activeChannelId: null,
       activeRadioChannel: {}
     });
 
@@ -33,7 +34,7 @@ class Radio extends React.Component {
       ...this.state,
       status: 0,
       statusText: null,
-      activeChannel: radioChannel.id,
+      activeChannelId: radioChannel.id,
       activeRadioChannel: radioChannel
     });
   }
@@ -45,12 +46,13 @@ class Radio extends React.Component {
         <Speaker position="left" />
         <Speaker position="right" />
         <Display statusText={this.state.statusText} channelName={this.state.activeRadioChannel.name} frequency={this.state.activeRadioChannel.frequency} />
+        <Player stream={this.state.activeRadioChannel.stream} />
         <div className="ButtonContainer">
-          <Button status={this.state.status} activeChannel={this.state.activeChannel} radioChannelId={1} onClickHandler={this.onClickHandler} />
-          <Button status={this.state.status} activeChannel={this.state.activeChannel} radioChannelId={2} onClickHandler={this.onClickHandler} />
-          <Button status={this.state.status} activeChannel={this.state.activeChannel} radioChannelId={3} onClickHandler={this.onClickHandler} />
+          <Button status={this.state.status} activeChannelId={this.state.activeChannelId} radioChannelId={1} onClickHandler={this.onClickHandler} />
+          <Button status={this.state.status} activeChannelId={this.state.activeChannelId} radioChannelId={2} onClickHandler={this.onClickHandler} />
+          <Button status={this.state.status} activeChannelId={this.state.activeChannelId} radioChannelId={3} onClickHandler={this.onClickHandler} />
         </div>
-      </div>
+      </div >
     );
   }
 }
